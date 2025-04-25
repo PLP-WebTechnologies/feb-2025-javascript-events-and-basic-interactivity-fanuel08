@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Concepts Demo</title>
+    <style>
+        .hidden { display: none; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+
+    <!-- Form with input validation -->
+    <h1>Form Validation Demo</h1>
+    <form id="myForm">
+        <label for="name">Name: </label>
+        <input type="text" id="name" required>
+        <span id="nameError" class="error hidden">Name is required</span>
+        <br><br>
+
+        <label for="email">Email: </label>
+        <input type="email" id="email" required>
+        <span id="emailError" class="error hidden">Please enter a valid email</span>
+        <br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Interactive button to show/hide message -->
+    <h2>Interactive Button Demo</h2>
+    <button id="toggleMessageBtn">Show Welcome Message</button>
+    <p id="welcomeMessage" class="hidden">Welcome to the webpage!</p>
+
+    <script>
+        // Event listener for the form submission
+        const form = document.getElementById('myForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+
+        // Event listener to validate form inputs when the form is submitted
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            let isValid = true;
+
+            // Name validation
+            if (nameInput.value.trim() === "") {
+                nameError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                nameError.classList.add('hidden');
+            }
+
+            // Email validation (using a basic regex for demo purposes)
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(emailInput.value)) {
+                emailError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                emailError.classList.add('hidden');
+            }
+
+            // If form is valid, display success message
+            if (isValid) {
+                alert("Form submitted successfully!");
+            } else {
+                alert("Please fix the errors and try again.");
+            }
+        });
+
+        // Event listener for the interactive button to show/hide the welcome message
+        const toggleMessageBtn = document.getElementById('toggleMessageBtn');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+
+        toggleMessageBtn.addEventListener('click', function() {
+            // Toggle the visibility of the welcome message
+            if (welcomeMessage.classList.contains('hidden')) {
+                welcomeMessage.classList.remove('hidden');
+                toggleMessageBtn.textContent = "Hide Welcome Message";
+            } else {
+                welcomeMessage.classList.add('hidden');
+                toggleMessageBtn.textContent = "Show Welcome Message";
+            }
+        });
+    </script>
+
+</body>
+</html>
